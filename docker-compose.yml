@@ -1,0 +1,20 @@
+crits:
+  build: .
+  volumes:
+    - dev/config:/config
+    - docker:/docker
+  links:
+    - mongodb
+  environment:
+    - CRITS_INIT_DB=1
+mongodb:
+  image: mongo:2.6
+  command: mongod --quiet --nojournal --noprealloc --smallfiles
+nginx:
+  build: dev/nginx
+  volumes:
+    - dev/nginx/:/data
+  links:
+    - crits
+  ports:
+    - "8443:443"

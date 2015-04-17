@@ -177,6 +177,7 @@ Regardless of what you use as a reverse proxy, you should always keep the follow
 
 * It communicates with your CRITs application using plain HTTP. Configure it to talk to the CRITs container's IP and port-number that you assigned, earlier.
 * It only accepts HTTPS traffic on the public side. If your reverse proxy is not using SSL, then the sessionid cookies that CRITs creates **will not work**, as they have the *secure* flag on them.
+* Be sure to bump up the maximum upload/POST size to 1 gigabyte (or whatever you want to be the upper-bound for uploads).
 * It **must** send set the following HTTP headers when passing requests to the CRITs container:
  * **Host** - this must be the original Host HTTP header that was requested of the reverse proxy. Failing to set this will result in the browser redirecting to weird places.
  * **X-Forwarded-Proto** - this should be *https*, matching your reverse proxy's protocol.

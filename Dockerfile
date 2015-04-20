@@ -99,7 +99,10 @@ RUN cp /data/crits/crits/config/database_example.py /config
 RUN cp /data/crits/crits/config/overrides_example.py /config
 VOLUME [ "/config" ]
 
+# HTTP socket
 EXPOSE 8080
+# uWSGI socket
+EXPOSE 8001
 
 WORKDIR /data/crits
 

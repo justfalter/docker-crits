@@ -10,6 +10,11 @@ This Dockerfile provides an instance of [CRITs](https://crits.github.io/) behind
 * Does not install any SSL certificates. 
 * Does not provide MongoDB. 
 
+# Services exposed
+
+* **tcp/8080** - *http-socket* - [uWSGI native HTTP-socket protocol](http://uwsgi-docs.readthedocs.org/en/latest/HTTP.html)
+* *tcp/8001* - *uwsgi-socket* - uWSGI Socket protocol
+
 # CRITs services
 ## Available Services
 Dependencies for the following services have been installed, so they are 
@@ -150,6 +155,8 @@ cp config/database_example.py /opt/crits-config/database.py
 #### Starting the CRITs container
 
 Now we start up the CRITs container. We'll be *mounting* the configuration directory we created, earlier, as */config* within the container. Replace IP\_ADDRESS with the IP address of one of your network interfaces (such as eth0). This will be the IP address that you will provide to your reverse proxy, later on. 
+
+If you intend to proxy via the HTTP protocol, then expose TCP port 8080. If you intend to use the uWSGI's socket protocol, expose TCP port 8001.
 
 ```
 docker run --restart="always" -d --name crits --volume /opt/crits-config:/config -p IP_ADDRESS:8080:8080 justfalter/crits:latest

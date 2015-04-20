@@ -1,15 +1,11 @@
-# Docker service for CRITs
-This Dockerfile provides an instance of [CRITs](https://crits.github.io/) behind [uWSGI](https://uwsgi-docs.readthedocs.org). You will not be able to run CRITs with this image alone. Rather, our hope was just to make getting CRITs up and running a bit easier for you. 
-
-This image is intended to be put behind a reverse proxy, such as [nginx](http://nginx.org/) or [Apache HTTP Server](http://httpd.apache.org/). 
+# Dockerized CRITs, the Collaborative Research Into Threats (CRITs) project
+This Dockerfile provides an instance of [CRITs](https://crits.github.io/) behind [uWSGI](https://uwsgi-docs.readthedocs.org). This image merely wraps CRITs up for those who want to deploy via Docker. In order to fully deploy CRITs, you will have to provide your own MongoDB server, as well as a reverse proxy such as [nginx](http://nginx.org/) or [Apache HTTP Server](http://httpd.apache.org/). 
 
 # Features
-
 * CRITs web application is served via uWSGI.  
-* Dependencies for most [CRITs services](https://github.com/crits/crits_services/) have already been installed, making them availbe for your usage. 
+* Dependencies for most [CRITs services](https://github.com/crits/crits_services/) have already been installed, making them available for your usage. 
 
 # Anti-Features
-
 * Does not add any user accounts. 
 * Does not install any SSL certificates. 
 * Does not provide MongoDB. 
@@ -104,9 +100,9 @@ That's it!
 
 ## Production
 A production environment should consist of the following:
-1. A MongoDB server instance. 
-2. An SSL-enabled HTTP service that acts as a reverse proxy for your CRITs application container. 
-3. The CRITs application container.
+* A MongoDB server instance. 
+* An SSL-enabled HTTP service that acts as a reverse proxy for your CRITs application container. 
+* The CRITs application container.
 
 The [CRITs wiki](https://github.com/crits/crits/wiki) already has information on setting up a [production-grade CRITs install](https://github.com/crits/crits/wiki/Production-grade-CRITs-install), so please read that over. 
 
@@ -120,7 +116,7 @@ You may know this already, but Docker makes it pretty easy to set up a MongoDB c
 
 Create a [data-volume-only container](http://docs.docker.com/userguide/dockervolumes/) for MongoDB: 
 ```
-docker run --restart="always" -d --name crits_mongodb_data mongo:2.6 /bin/true
+docker run -d --name crits_mongodb_data mongo:2.6 /bin/true
 ```
 
 **Note:** The data-volume-only container will exit, immediately, which is to be expected. Despite this, fight the urge to delete it, as this is where your MongoDB data resides. It exists to make it easier to upgrade to a new version of MongoDB without having to worry about losing all of your data. It might be hard to wrap your head around at first, but if you spend any amount of time working with Docker containers, you'll appreciate the value of using a data-volume-only container. 

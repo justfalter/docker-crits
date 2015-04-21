@@ -1,10 +1,12 @@
 CRITS_DIR		= /data/crits
 CRITS_DB		= $(CRITS_DIR)/crits/config/database.py
 CRITS_OVERRIDES		= $(CRITS_DIR)/crits/config/overrides.py
+CRITS_STARTUP		= $(CRITS_DIR)/start_crits.py
 
 SCRIPTS_DIR		= /docker
 SCRIPTS_DB		= $(SCRIPTS_DIR)/crits/database.py
 SCRIPTS_OVERRIDES	= $(SCRIPTS_DIR)/crits/overrides.py
+SCRIPTS_CRITS_STARTUP	= $(SCRIPTS_DIR)/start_crits.py
 
 EXTRA_CRITS_TARGETS 		=
 
@@ -44,6 +46,7 @@ endif
 setup_crits_links: crits_services
 	ln -vsf $(SCRIPTS_DB) $(CRITS_DB)
 	ln -vsf $(SCRIPTS_OVERRIDES) $(CRITS_OVERRIDES)
+	ln -vsf $(SCRIPTS_CRITS_STARTUP) $(CRITS_STARTUP)
 
 validate_crits_config: setup_crits_links $(CRITS_DB) $(CRITS_OVERRIDES) $(EXTRA_CRITS_TARGETS) 
 	cd $(CRITS_DIR) && \
